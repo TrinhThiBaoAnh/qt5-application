@@ -1,0 +1,17 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/analysis.png</file>
+    <file>icons/calendar.png</file>
+    <file>icons/check.png</file>
+    <file>icons/clock.png</file>
+    <file>icons/contacts.png</file>
+    <file>icons/list.png</file>
+    <file>icons/logout.png</file>
+    <file>icons/menu.png</file>
+    <file>icons/otp.png</file>
+    <file>icons/play.png</file>
+    <file>icons/project-management.png</file>
+    <file>icons/stop.png</file>
+    <file>icons/testing.png</file>
+  </qresource>
+</RCC>
