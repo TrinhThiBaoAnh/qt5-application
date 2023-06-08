@@ -7,14 +7,13 @@ from PyQt5.QtWidgets import QApplication, QWidget, \
                             QHeaderView, QStyle, QStyleOptionButton,QAction,  \
                             QCheckBox, QVBoxLayout, QMenu
 
-from PyQt5.QtGui import QPainter, QPixmap, QFont, QFontDatabase, QTransform, QDesktopServices
+from PyQt5.QtGui import QPainter, QPixmap, QFont, QFontDatabase, QTransform, QDesktopServices, QClipboard
 from PyQt5.QtCore import Qt, QRect, QUrl
 from Custom_Widgets.Widgets import *
 from PyQt5 import QtWidgets
-
+from functions import * 
 from ui_upPhoiWindow import *
-
-
+from upPhoiWindow import UpPhoiWindow
 class MyHeader(QHeaderView):
     def __init__(self, orientation, parent=None):
         super().__init__(orientation, parent)
@@ -45,260 +44,11 @@ class MyHeader(QHeaderView):
                 if item:
                     item.setCheckState(Qt.Checked if self.isOn else Qt.Unchecked)
 
-
-# class ImageLabel(QLabel):
-#     def __init__(self, image_path, parent=None):
-#         super().__init__(parent)
-#         original_image = QPixmap(image_path)
-#         width = 591  # desired width
-#         height = 361  # desired height
-#         resized_image = original_image.scaled(width, height)
-#         self.setPixmap(resized_image)
-
-#     def mousePressEvent(self, event):
-#         if event.buttons() == Qt.LeftButton:
-#             x = event.x()
-#             y = event.y()
-#             print("Clicked coordinates: ({}, {})".format(x, y))
-#             return x, y
-
-class UpPhoiWindow(QMainWindow):
-    def __init__(self, parent=None):
-        QMainWindow.__init__(self)
-        self.ui = Ui_UpPhoiWindow()
-        self.ui.setupUi(self)
-        self.ui.pushButton.clicked.connect(self.browser_images)
-        # Get the list of available font families
-        font_families = QFontDatabase().families()
-        # Set the font families as items in the QComboBox
-        self.ui.comboBox_3.addItems(font_families)
-        for num in range(6, 96):
-            self.ui.comboBox_2.addItem(str(num))
-        self.ui.spinBox_11.setValue(170)
-        self.ui.spinBox_12.setValue(480)
-
-        self.ui.spinBox_17.setValue(150)
-        self.ui.spinBox_18.setValue(210)
-
-        self.ui.spinBox_14.setValue(70)
-        self.ui.spinBox_15.setValue(210)
-
-        self.ui.spinBox_20.setValue(120)
-        self.ui.spinBox_21.setValue(210)
-
-        self.ui.spinBox_23.setValue(210)
-        self.ui.spinBox_25.setValue(100)
-        self.ui.label_36.setText('<a href="https://www.youtube.com">Video hướng dẫn</a>')
-        self.ui.label_36.setOpenExternalLinks(True)  # Allow opening the link in an external browser
-
-        # Connect the link clicked signal to a slot
-        self.ui.label_36.linkActivated.connect(lambda url: QDesktopServices.openUrl(QUrl(url)))
-
-        self.show()
-
-    def paint_images(self, background_image, foreground_image,
-                     givenname, surname, birthday, gender, address,
-                     img_x, img_y, img_width, img_height,
-                     givenname_x, givenname_y, surname_x, surname_y, birthday_x, birthday_y, gender_x, gender_y,
-                     address_x, address_y,
-                     font_family, is_bold,
-                     text_color, font_size):
-
-        font = QFont()
-        font.setFamily(font_family)
-        font.setPointSize(font_size)
-        font.setBold(is_bold)
-
-        text_color = Qt.red
-
-        self.ui.spinBox_3.setValue(img_x)
-        self.ui.spinBox_4.setValue(img_y)
-
-        width = 591  # desired width
-        height = 361  # desired height
-        background_image = background_image.scaled(width, height)
-        foreground_image = foreground_image.scaled(img_width, img_height)
-        self.ui.image_label.setPixmap(background_image)
-
-        self.ui.spinBox.setValue(img_width)
-        self.ui.spinBox_2.setValue(img_height)
-        combined_image = QPixmap(background_image.size())
-        combined_image.fill(Qt.transparent)
-
-        # Draw the background image on the combined image
-        painter = QPainter(combined_image)
-        painter.drawPixmap(0, 0, background_image)
-        painter.drawPixmap(img_x, img_y, foreground_image)
-        painter.setFont(font)
-        painter.setPen(text_color)
-        # Set the rotation angles for the texts
-        angle_givenname = self.ui.spinBox_24.value()
-        angle_surname = self.ui.spinBox_16.value()
-        angle_birthday = self.ui.spinBox_19.value()
-        angle_gender = self.ui.spinBox_13.value()
-        angle_address = self.ui.spinBox_22.value()
-
-        # Create a transformation matrix for each rotation angle
-        transform_1 = QTransform()
-        transform_1.rotate(angle_givenname)
-
-        transform_2 = QTransform()
-        transform_2.rotate(angle_surname)
-
-        transform_3 = QTransform()
-        transform_3.rotate(angle_birthday)
-
-        transform_4 = QTransform()
-        transform_4.rotate(angle_gender)
-
-        transform_5 = QTransform()
-        transform_5.rotate(angle_address)
-
-        # Apply the transformations to the painter for each text
-        painter.setTransform(transform_1)
-        painter.drawText(givenname_x, givenname_y, givenname)
-
-        painter.setTransform(transform_2)
-        painter.drawText(surname_x, surname_y, surname)
-
-        painter.setTransform(transform_3)
-        painter.drawText(birthday_x, birthday_y, birthday)
-
-        painter.setTransform(transform_4)
-        painter.drawText(gender_x, gender_y, gender)
-
-        painter.setTransform(transform_5)
-        painter.drawText(address_x, address_y, address)
-
-        # painter.drawText(givenname_x, givenname_y, givenname)
-        # painter.drawText(surname_x, surname_y, surname)
-        # painter.drawText(birthday_x, birthday_y, birthday)
-        # painter.drawText(gender_x, gender_y, gender)
-        # painter.drawText(address_x, address_y, address)
-        painter.end()
-
-        self.ui.label_img.setPixmap(combined_image)
-        self.ui.label_img.show()
-
-    def browser_images(self):
-        fname = QFileDialog.getOpenFileName(self, "Open Image", "", "Image Files (*.png *.jpg *.jpeg *.bmp)")
-        if fname:
-            img_path = str(fname).replace("Image Files (*.png *.jpg *.jpeg *.bmp)", "")[2:-6]
-            self.ui.textEdit.setText(img_path)
-            self.background_image = QPixmap(img_path)
-            self.foreground_image = QPixmap("demo/a.png")
-            w = self.foreground_image.width()
-            h = self.foreground_image.height()
-
-            # current_index = self.ui.comboBox_2.currentIndex()
-            font_size = self.ui.comboBox_2.currentText()
-
-            # current_index = self.ui.comboBox_3.currentIndex()
-            font_family = self.ui.comboBox_3.currentText()
-
-            # current_index = self.ui.comboBox_4.currentIndex()
-
-            is_bold = self.ui.comboBox_4.currentText() == "Bold"
-            # current_index = self.ui.comboBox_4.currentIndex()
-            text_color = self.ui.comboBox_4.currentText()
-            self.givenname = "First Name"
-            self.surname = "Last Name"
-            self.birthday = "dd/mm/yyyy"
-            self.gender = "Sex"
-            self.address = "Address"
-            givenname_x = self.ui.spinBox_23.value()
-            givenname_y = self.ui.spinBox_25.value()
-
-            surname_x = self.ui.spinBox_15.value()
-            surname_y = self.ui.spinBox_14.value()
-
-            birthday_x = self.ui.spinBox_18.value()
-            birthday_y = self.ui.spinBox_17.value()
-
-            gender_x = self.ui.spinBox_12.value()
-            gender_y = self.ui.spinBox_11.value()
-
-            address_x = self.ui.spinBox_21.value()
-            address_y = self.ui.spinBox_20.value()
-
-            self.paint_images(self.background_image, self.foreground_image,
-                              self.givenname, self.surname, self.birthday, self.gender, self.address,
-                              img_x=100, img_y=100,
-                              img_width=w, img_height=h,
-                              givenname_x=givenname_x, givenname_y=givenname_y, surname_x=surname_x,
-                              surname_y=surname_y,
-                              birthday_x=birthday_x, birthday_y=birthday_y, gender_x=gender_x, gender_y=gender_y,
-                              address_x=address_x, address_y=address_y, font_family=font_family, is_bold=True,
-                              text_color="Black", font_size=int(font_size))
-            self.ui.spinBox.valueChanged.connect(self.update)
-            self.ui.spinBox_2.valueChanged.connect(self.update)
-            self.ui.spinBox_3.valueChanged.connect(self.update)
-            self.ui.spinBox_4.valueChanged.connect(self.update)
-
-            self.ui.spinBox_23.valueChanged.connect(self.update)
-            self.ui.spinBox_25.valueChanged.connect(self.update)
-
-            self.ui.spinBox_15.valueChanged.connect(self.update)
-            self.ui.spinBox_14.valueChanged.connect(self.update)
-
-            self.ui.spinBox_18.valueChanged.connect(self.update)
-            self.ui.spinBox_17.valueChanged.connect(self.update)
-
-            self.ui.spinBox_12.valueChanged.connect(self.update)
-            self.ui.spinBox_11.valueChanged.connect(self.update)
-
-            self.ui.spinBox_21.valueChanged.connect(self.update)
-            self.ui.spinBox_20.valueChanged.connect(self.update)
-
-            self.ui.comboBox_2.currentIndexChanged.connect(self.update)
-            self.ui.comboBox_3.currentIndexChanged.connect(self.update)
-
-            self.ui.spinBox_24.valueChanged.connect(self.update)
-            self.ui.spinBox_16.valueChanged.connect(self.update)
-            self.ui.spinBox_19.valueChanged.connect(self.update)
-            self.ui.spinBox_13.valueChanged.connect(self.update)
-            self.ui.spinBox_22.valueChanged.connect(self.update)
-
-        return 0
-
-    def update(self):
-        font_family = self.ui.comboBox_3.currentText()
-        font_size = self.ui.comboBox_2.currentText()
-        givenname_x = self.ui.spinBox_23.value()
-        givenname_y = self.ui.spinBox_25.value()
-
-        surname_x = self.ui.spinBox_15.value()
-        surname_y = self.ui.spinBox_14.value()
-
-        birthday_x = self.ui.spinBox_18.value()
-        birthday_y = self.ui.spinBox_17.value()
-
-        gender_x = self.ui.spinBox_12.value()
-        gender_y = self.ui.spinBox_11.value()
-
-        address_x = self.ui.spinBox_21.value()
-        address_y = self.ui.spinBox_20.value()
-        w = self.ui.spinBox.value()
-        h = self.ui.spinBox_2.value()
-        x = self.ui.spinBox_3.value()
-        y = self.ui.spinBox_4.value()
-        self.paint_images(self.background_image, self.foreground_image,
-                          self.givenname, self.surname, self.birthday, self.gender, self.address,
-                          img_x=x, img_y=y,
-                          img_width=w, img_height=h,
-                          givenname_x=givenname_x, givenname_y=givenname_y, surname_x=surname_x, surname_y=surname_y,
-                          birthday_x=birthday_x, birthday_y=birthday_y, gender_x=gender_x, gender_y=gender_y,
-                          address_x=address_x, address_y=address_y, font_family=font_family, is_bold=True,
-                          text_color="Black", font_size=int(font_size))
-        return 0
-
-
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
         ########################################################################
         # APPLY JSON STYLESHEET
         ########################################################################
@@ -314,15 +64,9 @@ class MainWindow(QMainWindow):
         self.ui.toolBox_3.currentChanged.connect(self.menuChanged)
         self.ui.BtnListMail.clicked.connect(self.openFileDialog)
         self.data = []
-        f = open("data_fb.txt", "r")
-        for item in f.readlines():
-            # item_values = item.split("|")
-            # self.data.append(item_values[:4])
-            self.data.append(item)
         myHeader = MyHeader(Qt.Horizontal, self.ui.tableWidget)
         myHeader.setTableWidget(self.ui.tableWidget)
         self.ui.tableWidget.setHorizontalHeader(myHeader)
-
         self.ui.tableWidget.setColumnWidth(0, 30)
         self.ui.tableWidget.setColumnWidth(1, 300)
         self.ui.tableWidget.setColumnWidth(2, 100)
@@ -337,6 +81,10 @@ class MainWindow(QMainWindow):
             self.ui.tableWidget.setVerticalHeaderItem(row, item2)
             self.ui.tableWidget.setItem(row, 0, item)
 
+        self.ui.start_button.clicked.connect(self.start_generation)
+        self.ui.stop_button.clicked.connect(self.stop_generation)
+        self.ui.stop_button.setEnabled(False)
+        self.generator_threads = []
         self.ui.comboBox_12.currentIndexChanged.connect(self.openUpPhoiWindow)
         self.show()
 
@@ -388,23 +136,62 @@ class MainWindow(QMainWindow):
         event.accept()
 
     def pasteDeleteAccount(self):
-        # QMessageBox.information(self, "Custom Action", "Paste tài khoản [Xóa tài khoản cũ] clicked!")
+        if self.ui.tableWidget.rowCount() > 0:
+            # print(self.ui.tableWidget.rowCount())
+            self.ui.tableWidget.clearContents()
+
+        clipboard = QApplication.clipboard()
+        clipboard_texts = clipboard.text().split("\n")
+        self.ui.tableWidget.setRowCount(len(clipboard_texts))
+        for item in clipboard_texts:
+            self.data.append(item)
         if len(self.data) > 0:
-            # for row, items in enumerate(self.data):
-            #    for i in range(len(items)):
-            #         table_item = QTableWidgetItem(items[i])
-            #         self.ui.tableWidget.setItem(row, i+1, table_item)
             for row, item in enumerate(self.data):
                 table_item = QTableWidgetItem(item)
                 self.ui.tableWidget.setItem(row, 1, table_item)
 
 
     def pasteNoDeleteAccount(self):
-        QMessageBox.information(self, "Custom Action", "Paste tài khoản [Không xóa tài khoản cũ] clicked!")
+        if self.ui.tableWidget.rowCount() > 0:
+            start_row = self.ui.tableWidget.rowCount()  
+        clipboard = QApplication.clipboard()
+        clipboard_texts = clipboard.text().split("\n")
+        self.ui.tableWidget.setRowCount(start_row + len(clipboard_texts))
+        for item in clipboard_texts:
+            self.data.append(item)
+        if len(self.data) > 0:
+            for row, item in enumerate(self.data):
+                table_item = QTableWidgetItem(item)
+                self.ui.tableWidget.setItem(start_row, 1, table_item)
 
     def clickSelectedAccount(self):
-        QMessageBox.information(self, "Custom Action", "Click vào tài khoản đã bôi đen clicked!")
+        # QMessageBox.information(self, "Custom Action", "Click vào tài khoản đã bôi đen clicked!")
+        pass
+    def start_generation(self):
 
+        self.ui.start_button.setEnabled(False)
+        self.ui.stop_button.setEnabled(True)
+        self.num_threads = self.ui.num_threads.value()
+        if self.num_threads > self.ui.tableWidget.rowCount():
+            self.num_threads = self.ui.tableWidget.rowCount()
+        for i in range(0, self.num_threads):
+            self.ui.tableWidget.setItem(i, 4,  QTableWidgetItem(""))
+        print(self.num_threads)
+        for i in range(0, self.num_threads): 
+            generator_thread = NumberGeneratorThread(i, i * 10 + 1, self.ui.delay_time.value())
+            generator_thread.number_generated.connect(self.handle_number_generated)
+            self.generator_threads.append(generator_thread)
+            generator_thread.start()
+
+    def stop_generation(self):
+        self.ui.start_button.setEnabled(True)
+        for generator_thread in self.generator_threads:
+            generator_thread.requestInterruption()
+
+    def handle_number_generated(self, number, thread_id):
+        item = QTableWidgetItem()
+        item.setText(str(number))
+        self.ui.tableWidget.setItem(thread_id, 4, item)
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
