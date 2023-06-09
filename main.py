@@ -85,6 +85,7 @@ class MainWindow(QMainWindow):
         self.ui.stop_button.clicked.connect(self.stop_generation)
         self.ui.stop_button.setEnabled(False)
         self.generator_threads = []
+        self.count = 0
         self.ui.comboBox_12.currentIndexChanged.connect(self.openUpPhoiWindow)
         self.show()
 
@@ -134,12 +135,19 @@ class MainWindow(QMainWindow):
 
         menu.exec_(event.globalPos())
         event.accept()
-
+    def get_checked_rows(self):
+        # Retrieve checked rows
+        checked_rows = []
+        for row in range(self.ui.tableWidget.rowCount()):
+            check_item = self.ui.tableWidget.item(row, 0)
+            if check_item.checkState() == Qt.Checked:
+                checked_rows.append(row)
+        return checked_rows
     def pasteDeleteAccount(self):
         if self.ui.tableWidget.rowCount() > 0:
             # print(self.ui.tableWidget.rowCount())
             self.ui.tableWidget.clearContents()
-
+            # Add checkboxes to the table
         clipboard = QApplication.clipboard()
         clipboard_texts = clipboard.text().split("\n")
         self.ui.tableWidget.setRowCount(len(clipboard_texts))
@@ -149,11 +157,18 @@ class MainWindow(QMainWindow):
             for row, item in enumerate(self.data):
                 table_item = QTableWidgetItem(item)
                 self.ui.tableWidget.setItem(row, 1, table_item)
-
+        for row in range(self.ui.tableWidget.rowCount()):
+            item = QTableWidgetItem()
+            item.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
+            item.setCheckState(Qt.Unchecked)
+            item2 = QTableWidgetItem(str(row + 1))
+            self.ui.tableWidget.setVerticalHeaderItem(row, item2)
+            self.ui.tableWidget.setItem(row, 0, item)
 
     def pasteNoDeleteAccount(self):
         if self.ui.tableWidget.rowCount() > 0:
             start_row = self.ui.tableWidget.rowCount()  
+        
         clipboard = QApplication.clipboard()
         clipboard_texts = clipboard.text().split("\n")
         self.ui.tableWidget.setRowCount(start_row + len(clipboard_texts))
@@ -163,35 +178,82 @@ class MainWindow(QMainWindow):
             for row, item in enumerate(self.data):
                 table_item = QTableWidgetItem(item)
                 self.ui.tableWidget.setItem(start_row, 1, table_item)
-
+        for row in range(self.ui.tableWidget.rowCount()):
+            item = QTableWidgetItem()
+            item.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
+            item.setCheckState(Qt.Unchecked)
+            item2 = QTableWidgetItem(str(row + 1))
+            self.ui.tableWidget.setVerticalHeaderItem(row, item2)
+            self.ui.tableWidget.setItem(row, 0, item)
     def clickSelectedAccount(self):
         # QMessageBox.information(self, "Custom Action", "Click vào tài khoản đã bôi đen clicked!")
         pass
     def start_generation(self):
-
         self.ui.start_button.setEnabled(False)
         self.ui.stop_button.setEnabled(True)
+
         self.num_threads = self.ui.num_threads.value()
         if self.num_threads > self.ui.tableWidget.rowCount():
             self.num_threads = self.ui.tableWidget.rowCount()
-        for i in range(0, self.num_threads):
-            self.ui.tableWidget.setItem(i, 4,  QTableWidgetItem(""))
-        print(self.num_threads)
-        for i in range(0, self.num_threads): 
-            generator_thread = NumberGeneratorThread(i, i * 10 + 1, self.ui.delay_time.value())
-            generator_thread.number_generated.connect(self.handle_number_generated)
-            self.generator_threads.append(generator_thread)
-            generator_thread.start()
 
+        self.checked_rows = self.get_checked_rows()
+        if self.num_threads > len(self.checked_rows):
+            self.num_threads = len(self.checked_rows)
+        for i in range(0, self.num_threads):
+            self.ui.tableWidget.setItem(i, 4, QTableWidgetItem(""))
+
+        self.start_thread_index = 0
+        self.end_thread_index = min(len(self.checked_rows), self.start_thread_index + self.num_threads)
+        if self.end_thread_index > self.start_thread_index:
+            for i in self.checked_rows:
+                generator_thread = NumberGeneratorThread(i, i * 10 + 1, self.ui.delay_time.value())
+                generator_thread.number_generated.connect(self.handle_number_generated)
+                generator_thread.thread_finished.connect(self.handle_thread_finished)
+                self.generator_threads.append(generator_thread)
+
+        self.current_thread_index = 0
+        self.run_next_thread()
     def stop_generation(self):
         self.ui.start_button.setEnabled(True)
         for generator_thread in self.generator_threads:
             generator_thread.requestInterruption()
 
     def handle_number_generated(self, number, thread_id):
+        # print(f"Thread {thread_id}: {number}")
         item = QTableWidgetItem()
         item.setText(str(number))
         self.ui.tableWidget.setItem(thread_id, 4, item)
+
+    def run_next_thread(self):
+        # print(self.current_thread_index)
+        if self.current_thread_index < len(self.generator_threads):
+            print(self.current_thread_index, "\t",len(self.generator_threads) )
+            for i in range(self.current_thread_index, min(self.current_thread_index + self.num_threads, len(self.generator_threads))):
+                # print(i)
+                generator_thread = self.generator_threads[i]
+                generator_thread.number_generated.connect(self.handle_number_generated)
+                generator_thread.thread_finished.connect(self.handle_thread_finished)
+                generator_thread.start()
+                self.count +=1
+            self.current_thread_index += self.num_threads
+        else:
+            self.finish_generation()
+
+    def handle_thread_finished(self, thread_id):
+        # print(f"Thread {thread_id} finished")
+        generator_thread = self.generator_threads[thread_id]
+        generator_thread.number_generated.disconnect(self.handle_number_generated)
+        # generator_thread.thread_finished.disconnect(self.handle_thread_finished)
+        print(self.count)
+        if self.count % self.num_threads ==0:
+            self.run_next_thread()
+
+    def finish_generation(self):
+        self.ui.stop_button.setEnabled(False)
+        self.ui.start_button.setEnabled(True)
+        print("All threads finished")
+
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWindow()
