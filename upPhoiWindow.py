@@ -6,10 +6,12 @@ from PyQt5.QtWidgets import QApplication, QWidget, \
                             QHeaderView, QStyle, QStyleOptionButton,QAction,  \
                             QCheckBox, QVBoxLayout, QMenu
 
-from PyQt5.QtGui import QPainter, QPixmap, QFont, QFontDatabase, QTransform, QDesktopServices, QClipboard
+from PyQt5.QtGui import QPainter, QPixmap, QFont,QPagedPaintDevice, QFontDatabase, QTransform, QDesktopServices, QClipboard, QPdfWriter
 from PyQt5.QtCore import Qt, QRect, QUrl
 from Custom_Widgets.Widgets import *
 from PyQt5 import QtWidgets
+from PySide2.QtPrintSupport import QPrinter
+
 from ui_upPhoiWindow import *
 class UpPhoiWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -39,7 +41,7 @@ class UpPhoiWindow(QMainWindow):
         self.ui.spinBox_25.setValue(100)
         self.ui.label_36.setText('<a href="https://www.youtube.com">Video hướng dẫn</a>')
         self.ui.label_36.setOpenExternalLinks(True)  # Allow opening the link in an external browser
-
+        self.ui.btn_preview.clicked.connect(self.show_preview)
         # Connect the link clicked signal to a slot
         self.ui.label_36.linkActivated.connect(lambda url: QDesktopServices.openUrl(QUrl(url)))
 
@@ -123,7 +125,7 @@ class UpPhoiWindow(QMainWindow):
         # painter.drawText(gender_x, gender_y, gender)
         # painter.drawText(address_x, address_y, address)
         painter.end()
-
+        self.combined_image = combined_image
         self.ui.label_img.setPixmap(combined_image)
         self.ui.label_img.show()
 
@@ -237,3 +239,16 @@ class UpPhoiWindow(QMainWindow):
                                 address_x=address_x, address_y= address_y,font_family=font_family, is_bold=True, 
                                 text_color ="Black", font_size = int(font_size))
         return 0
+    def show_preview(self):
+        self.preview_window = QMainWindow()
+        self.preview_window.setWindowTitle("Image Preview")
+
+        # # Create a label and set the pixmap
+        label = QLabel()
+        label.setPixmap(self.combined_image)
+        self.preview_window.setCentralWidget(label)
+        # Show the new window
+        self.preview_window.show()
+        # Save the combined_image as PDF
+        # self.save_as_pdf(self.combined_image)
+

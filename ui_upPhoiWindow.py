@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'upPhoiWindowFpiVIv.ui'
+## Form generated from reading UI file 'upPhoiWindoweWAoMh.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -78,6 +78,11 @@ class Ui_UpPhoiWindow(object):
         self.label_36.setStyleSheet(u"\n"
 "color: rgb(0, 85, 255);\n"
 "text-decoration: underline;")
+        self.btn_preview = QPushButton(self.frame_4)
+        self.btn_preview.setObjectName(u"btn_preview")
+        self.btn_preview.setGeometry(QRect(20, 390, 101, 31))
+        self.btn_preview.setStyleSheet(u"background-color: rgb(46, 52, 54);\n"
+"color: rgb(255, 255, 255);")
 
         self.horizontalLayout.addWidget(self.frame_4)
 
@@ -416,6 +421,7 @@ class Ui_UpPhoiWindow(object):
         self.label_2.setText(QCoreApplication.translate("UpPhoiWindow", u"Ph\u00f4i ch\u1ec9nh s\u1eeda", None))
         self.label_img.setText("")
         self.label_36.setText(QCoreApplication.translate("UpPhoiWindow", u"Video h\u01b0\u1edbng d\u1eabn", None))
+        self.btn_preview.setText(QCoreApplication.translate("UpPhoiWindow", u"Preview", None))
         self.label_15.setText(QCoreApplication.translate("UpPhoiWindow", u"V\u1ecb tr\u00ed[CHI\u1ec0U NGANG X CHI\u1ec0U D\u1eccC X XOAY CHI\u1ec0U]", None))
         self.label_16.setText(QCoreApplication.translate("UpPhoiWindow", u"H\u1ecd ", None))
         self.label_17.setText(QCoreApplication.translate("UpPhoiWindow", u"Ng\u00e0y sinh", None))
