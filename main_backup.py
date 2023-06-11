@@ -191,30 +191,27 @@ class MainWindow(QMainWindow):
     def start_generation(self):
         self.ui.start_button.setEnabled(False)
         self.ui.stop_button.setEnabled(True)
-        self.num_threads = self.ui.num_threads.value()
+
+        # self.num_threads = self.ui.num_threads.value()
+        # if self.num_threads > self.ui.tableWidget.rowCount():
+        #     self.num_threads = self.ui.tableWidget.rowCount()
+
         self.checked_rows = self.get_checked_rows()
         self.num_threads = min(len(self.checked_rows), self.num_threads)
-        # Create threads
-        for i in range(0, self.ui.tableWidget.rowCount()):  # Create 4 generator threads
-            if i in self.checked_rows:
-                generator_thread = NumberGeneratorThread(i, i * 10 + 1, 400)
+        for i in range(0, self.num_threads):
+            self.ui.tableWidget.setItem(i, 4, QTableWidgetItem(""))
+
+        self.start_thread_index = 0
+        self.end_thread_index = min(len(self.checked_rows), self.start_thread_index + self.num_threads)
+        if self.end_thread_index > self.start_thread_index:
+            for i in self.checked_rows:
+                generator_thread = NumberGeneratorThread(i, i * 10 + 1, self.ui.delay_time.value())
                 generator_thread.number_generated.connect(self.handle_number_generated)
                 generator_thread.thread_finished.connect(self.handle_thread_finished)
                 self.generator_threads.append(generator_thread)
-        # print( "len(self.generator_threads): " , len(self.generator_threads))
+
         self.current_thread_index = 0
-        self.run_next_threads()
-
-    def run_next_threads(self):
-        num_threads_to_run = min(len(self.generator_threads) - self.current_thread_index, self.num_threads)
-        # import ipdb; ipdb.set_trace();
-        if num_threads_to_run > 0:
-            for i in range(num_threads_to_run):
-                generator_thread = self.generator_threads[self.current_thread_index]
-                generator_thread.start()
-                # if i == num_threads_to_run-1:
-                self.current_thread_index += 1
-
+        self.run_next_thread()
     def stop_generation(self):
         self.ui.start_button.setEnabled(True)
         for generator_thread in self.generator_threads:
@@ -226,27 +223,34 @@ class MainWindow(QMainWindow):
         item.setText(str(number))
         self.ui.tableWidget.setItem(thread_id, 4, item)
 
-    def handle_thread_finished(self, thread_id):
-        print(f"Thread {thread_id} finished")
-        # print('current_thread_index: ', self.current_thread_index)
-        # import ipdb; ipdb.set_trace();
+    def run_next_thread(self):
+        # print(self.current_thread_index)
         if self.current_thread_index < len(self.generator_threads):
-            if thread_id % self.num_threads==0:
-                self.run_next_threads() 
+            print(self.current_thread_index, "\t",len(self.generator_threads) )
+            for i in range(self.current_thread_index, min(self.current_thread_index + self.num_threads, len(self.generator_threads))):
+                # print(i)
+                
+                generator_thread = self.generator_threads[i]
+                generator_thread.number_generated.connect(self.handle_number_generated)
+                generator_thread.thread_finished.connect(self.handle_thread_finished)
+                generator_thread.start()
+                self.count +=1
+            self.current_thread_index += self.num_threads
         else:
             self.finish_generation()
+
+    def handle_thread_finished(self, thread_id):
+        # print(f"Thread {thread_id} finished")
+        generator_thread = self.generator_threads[thread_id]
+        generator_thread.number_generated.disconnect(self.handle_number_generated)
+        # generator_thread.thread_finished.disconnect(self.handle_thread_finished)
+        print(self.count)
+        if self.count % self.num_threads ==0:
+            self.run_next_thread()
 
     def finish_generation(self):
         self.ui.stop_button.setEnabled(False)
         self.ui.start_button.setEnabled(True)
-        self.current_thread_index = 0
-
-        for generator_thread in self.generator_threads:
-            generator_thread.requestInterruption()
-            generator_thread.quit()
-            generator_thread.wait()
-        self.generator_threads = []
-        # self.start_generation()
         print("All threads finished")
 
 
