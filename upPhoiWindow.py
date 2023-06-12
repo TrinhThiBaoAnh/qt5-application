@@ -250,5 +250,7 @@ class UpPhoiWindow(QMainWindow):
         # Show the new window
         self.preview_window.show()
         # Save the combined_image as PDF
-        # self.save_as_pdf(self.combined_image)
+        self.save_as_png(self.combined_image)
+    def save_as_png(self,   image):
+        image.save("output/preview.png", "PNG")
 

@@ -191,13 +191,15 @@ class MainWindow(QMainWindow):
     def start_generation(self):
         self.ui.start_button.setEnabled(False)
         self.ui.stop_button.setEnabled(True)
+        self.clearRow()
         self.num_threads = self.ui.num_threads.value()
+        self.delay_time = self.ui.delay_time.value()
         self.checked_rows = self.get_checked_rows()
         self.num_threads = min(len(self.checked_rows), self.num_threads)
         # Create threads
         for i in range(0, self.ui.tableWidget.rowCount()):  # Create 4 generator threads
             if i in self.checked_rows:
-                generator_thread = NumberGeneratorThread(i, i * 10 + 1, 400)
+                generator_thread = NumberGeneratorThread(i, i * 10 + 1, self.delay_time)
                 generator_thread.number_generated.connect(self.handle_number_generated)
                 generator_thread.thread_finished.connect(self.handle_thread_finished)
                 self.generator_threads.append(generator_thread)
@@ -246,9 +248,13 @@ class MainWindow(QMainWindow):
             generator_thread.quit()
             generator_thread.wait()
         self.generator_threads = []
+        
         # self.start_generation()
         print("All threads finished")
-
+    def clearRow(self):
+        for row in range(self.ui.tableWidget.rowCount()):
+            item = QTableWidgetItem("")
+            self.ui.tableWidget.setItem(row, 4, item)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
