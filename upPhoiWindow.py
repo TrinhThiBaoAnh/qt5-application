@@ -42,7 +42,7 @@ class UpPhoiWindow(QMainWindow):
         self.show()
     def paint_images(self, background_image, foreground_image, 
                      givenname,surname,birthday,gender,address, 
-                     img_x, img_y, img_width, img_height,
+                     img_x, img_y, rotation_angle, img_width, img_height,
                      givenname_x, givenname_y, surname_x, surname_y,birthday_x, birthday_y,gender_x, gender_y, address_x, address_y,
                      font_family, is_bold, 
                      text_color, font_size):
@@ -61,6 +61,13 @@ class UpPhoiWindow(QMainWindow):
         height = 361  # desired height
         background_image = background_image.scaled(width, height)
         foreground_image = foreground_image.scaled(img_width, img_height)
+        print("rotation_angle:", rotation_angle)
+        transform = QTransform()
+        transform.rotate(rotation_angle)
+
+        # Create a new QPixmap object with the rotated image
+        rotated_image = foreground_image.transformed(transform)
+
         self.ui.image_label.setPixmap(background_image)
 
         self.ui.spinBox.setValue(img_width)
@@ -71,7 +78,7 @@ class UpPhoiWindow(QMainWindow):
         # Draw the background image on the combined image
         painter = QPainter(combined_image)
         painter.drawPixmap(0, 0, background_image)
-        painter.drawPixmap(img_x, img_y, foreground_image)
+        painter.drawPixmap(img_x, img_y, rotated_image)
         painter.setFont(font)
         painter.setPen(text_color)
         # Set the rotation angles for the texts
@@ -81,7 +88,8 @@ class UpPhoiWindow(QMainWindow):
         angle_gender = self.ui.spinBox_13.value()
         angle_address = self.ui.spinBox_22.value()
 
-        # Create a transformation matrix for each rotation angle
+ 
+
         transform_1 = QTransform()
         transform_1.rotate(angle_givenname)
 
@@ -97,7 +105,20 @@ class UpPhoiWindow(QMainWindow):
         transform_5 = QTransform()
         transform_5.rotate(angle_address)
 
-        # Apply the transformations to the painter for each text
+        # # Apply the transformations to the painter for each text
+        
+        # Get the bounding rectangle of the text
+        text_rect = painter.boundingRect(givenname_x, givenname_y, 0, 0, Qt.AlignLeft | Qt.AlignTop, givenname)
+
+        # Calculate the center position based on the bounding rectangle
+        center_x = givenname_x + text_rect.width() 
+        center_y = givenname_y + text_rect.height() 
+
+        # Create a transformation matrix for the rotation angle around the center
+        transform = QTransform()
+        transform.translate(center_x, center_y)
+        transform.rotate(angle_givenname)
+        transform.translate(-center_x, -center_y)
         painter.setTransform(transform_1)
         painter.drawText(givenname_x, givenname_y, givenname)
 
@@ -161,7 +182,7 @@ class UpPhoiWindow(QMainWindow):
 
             self.paint_images(self.background_image, self.foreground_image, 
                               self.givenname,self.surname,self.birthday,self.gender,self.address,
-                                img_x=100, img_y=100, 
+                                img_x=100, img_y=100, rotation_angle = 0,
                                 img_width =w , img_height = h,
                                 givenname_x = givenname_x, givenname_y= givenname_y, surname_x= surname_x, surname_y=surname_y,
                                 birthday_x= birthday_x, birthday_y= birthday_y,gender_x= gender_x, gender_y= gender_y,
@@ -171,6 +192,7 @@ class UpPhoiWindow(QMainWindow):
             self.ui.spinBox_2.valueChanged.connect(self.update)
             self.ui.spinBox_3.valueChanged.connect(self.update)
             self.ui.spinBox_4.valueChanged.connect(self.update)
+            self.ui.spinBox_5.valueChanged.connect(self.update)
 
             self.ui.spinBox_23.valueChanged.connect(self.update)
             self.ui.spinBox_25.valueChanged.connect(self.update)
@@ -202,7 +224,7 @@ class UpPhoiWindow(QMainWindow):
         font_size = self.ui.comboBox_2.currentText()
         givenname_x = self.ui.spinBox_23.value()
         givenname_y = self.ui.spinBox_25.value()
-
+ 
         surname_x = self.ui.spinBox_15.value()
         surname_y = self.ui.spinBox_14.value()
 
@@ -216,11 +238,12 @@ class UpPhoiWindow(QMainWindow):
         address_y = self.ui.spinBox_20.value()
         w = self.ui.spinBox.value()
         h = self.ui.spinBox_2.value()
+        img_angle  = self.ui.spinBox_5.value()
         x = self.ui.spinBox_3.value()
         y = self.ui.spinBox_4.value()
         self.paint_images(self.background_image, self.foreground_image,
                           self.givenname,self.surname,self.birthday,self.gender,self.address,
-                                img_x=x, img_y=y, 
+                                img_x=x, img_y=y, rotation_angle = img_angle,
                                 img_width =w , img_height = h,
                                 givenname_x = givenname_x, givenname_y= givenname_y, surname_x= surname_x, surname_y=surname_y,
                                 birthday_x= birthday_x, birthday_y= birthday_y,gender_x= gender_x, gender_y= gender_y, 

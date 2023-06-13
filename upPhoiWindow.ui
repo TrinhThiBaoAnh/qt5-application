@@ -412,6 +412,9 @@ color: rgb(255, 255, 255);</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(46, 52, 54);</string>
         </property>
+        <property name="minimum">
+         <number>-360</number>
+        </property>
         <property name="maximum">
          <number>360</number>
         </property>
@@ -491,6 +494,9 @@ color: rgb(255, 255, 255);</string>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(46, 52, 54);</string>
+        </property>
+        <property name="minimum">
+         <number>-360</number>
         </property>
         <property name="maximum">
          <number>360</number>
@@ -572,6 +578,9 @@ color: rgb(255, 255, 255);</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(46, 52, 54);</string>
         </property>
+        <property name="minimum">
+         <number>-360</number>
+        </property>
         <property name="maximum">
          <number>360</number>
         </property>
@@ -652,6 +661,9 @@ color: rgb(255, 255, 255);</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(46, 52, 54);</string>
         </property>
+        <property name="minimum">
+         <number>-360</number>
+        </property>
         <property name="maximum">
          <number>360</number>
         </property>
@@ -715,6 +727,9 @@ color: rgb(255, 255, 255);</string>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(46, 52, 54);</string>
+        </property>
+        <property name="minimum">
+         <number>-360</number>
         </property>
         <property name="maximum">
          <number>360</number>
@@ -1178,6 +1193,9 @@ color: rgb(255, 255, 255);</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(46, 52, 54);</string>
         </property>
+        <property name="minimum">
+         <number>-360</number>
+        </property>
         <property name="maximum">
          <number>360</number>
         </property>
@@ -1193,6 +1211,9 @@ color: rgb(255, 255, 255);</string>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(46, 52, 54);</string>
+        </property>
+        <property name="minimum">
+         <number>-360</number>
         </property>
         <property name="maximum">
          <number>999999</number>

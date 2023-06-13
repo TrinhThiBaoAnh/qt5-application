@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'upPhoiWindoweWAoMh.ui'
+## Form generated from reading UI file 'upPhoiWindowQiJvXc.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -142,6 +142,7 @@ class Ui_UpPhoiWindow(object):
         self.spinBox_13.setObjectName(u"spinBox_13")
         self.spinBox_13.setGeometry(QRect(300, 190, 61, 31))
         self.spinBox_13.setStyleSheet(u"background-color: rgb(46, 52, 54);")
+        self.spinBox_13.setMinimum(-360)
         self.spinBox_13.setMaximum(360)
         self.label_22 = QLabel(self.frame_5)
         self.label_22.setObjectName(u"label_22")
@@ -165,6 +166,7 @@ class Ui_UpPhoiWindow(object):
         self.spinBox_16.setObjectName(u"spinBox_16")
         self.spinBox_16.setGeometry(QRect(300, 110, 61, 31))
         self.spinBox_16.setStyleSheet(u"background-color: rgb(46, 52, 54);")
+        self.spinBox_16.setMinimum(-360)
         self.spinBox_16.setMaximum(360)
         self.label_24 = QLabel(self.frame_5)
         self.label_24.setObjectName(u"label_24")
@@ -188,6 +190,7 @@ class Ui_UpPhoiWindow(object):
         self.spinBox_19.setObjectName(u"spinBox_19")
         self.spinBox_19.setGeometry(QRect(300, 150, 61, 31))
         self.spinBox_19.setStyleSheet(u"background-color: rgb(46, 52, 54);")
+        self.spinBox_19.setMinimum(-360)
         self.spinBox_19.setMaximum(360)
         self.label_26 = QLabel(self.frame_5)
         self.label_26.setObjectName(u"label_26")
@@ -211,6 +214,7 @@ class Ui_UpPhoiWindow(object):
         self.spinBox_22.setObjectName(u"spinBox_22")
         self.spinBox_22.setGeometry(QRect(300, 230, 61, 31))
         self.spinBox_22.setStyleSheet(u"background-color: rgb(46, 52, 54);")
+        self.spinBox_22.setMinimum(-360)
         self.spinBox_22.setMaximum(360)
         self.label_28 = QLabel(self.frame_5)
         self.label_28.setObjectName(u"label_28")
@@ -229,6 +233,7 @@ class Ui_UpPhoiWindow(object):
         self.spinBox_24.setObjectName(u"spinBox_24")
         self.spinBox_24.setGeometry(QRect(300, 70, 61, 31))
         self.spinBox_24.setStyleSheet(u"background-color: rgb(46, 52, 54);")
+        self.spinBox_24.setMinimum(-360)
         self.spinBox_24.setMaximum(360)
         self.spinBox_25 = QSpinBox(self.frame_5)
         self.spinBox_25.setObjectName(u"spinBox_25")
@@ -361,11 +366,13 @@ class Ui_UpPhoiWindow(object):
         self.spinBox_5.setObjectName(u"spinBox_5")
         self.spinBox_5.setGeometry(QRect(380, 100, 61, 31))
         self.spinBox_5.setStyleSheet(u"background-color: rgb(46, 52, 54);")
+        self.spinBox_5.setMinimum(-360)
         self.spinBox_5.setMaximum(360)
         self.spinBox_6 = QSpinBox(self.frame_6)
         self.spinBox_6.setObjectName(u"spinBox_6")
         self.spinBox_6.setGeometry(QRect(380, 210, 61, 31))
         self.spinBox_6.setStyleSheet(u"background-color: rgb(46, 52, 54);")
+        self.spinBox_6.setMinimum(-360)
         self.spinBox_6.setMaximum(999999)
         self.spinBox_7 = QSpinBox(self.frame_6)
         self.spinBox_7.setObjectName(u"spinBox_7")
