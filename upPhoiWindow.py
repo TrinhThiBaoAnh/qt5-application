@@ -1,18 +1,12 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, \
-                            QInputDialog, QLineEdit,\
-                            QFileDialog, QTableWidget, \
-                            QTableWidgetItem, QMessageBox, \
-                            QHeaderView, QStyle, QStyleOptionButton,QAction,  \
-                            QCheckBox, QVBoxLayout, QMenu
+from PyQt5.QtWidgets import QFileDialog
 
-from PyQt5.QtGui import QPainter, QPixmap, QFont,QPagedPaintDevice, QFontDatabase, QTransform, QDesktopServices, QClipboard, QPdfWriter
-from PyQt5.QtCore import Qt, QRect, QUrl
+from PyQt5.QtGui import QPainter, QPixmap, QFont, QFontDatabase, QTransform, QDesktopServices, QClipboard, QPdfWriter
+from PyQt5.QtCore import Qt, QUrl,  QSettings
 from Custom_Widgets.Widgets import *
-from PyQt5 import QtWidgets
-from PySide2.QtPrintSupport import QPrinter
 
 from ui_upPhoiWindow import *
+
 class UpPhoiWindow(QMainWindow):
     def __init__(self, parent=None):
         QMainWindow.__init__(self)
@@ -119,12 +113,6 @@ class UpPhoiWindow(QMainWindow):
         painter.setTransform(transform_5)
         painter.drawText(address_x, address_y, address)
 
-        # painter.drawText(givenname_x, givenname_y, givenname)
-        # painter.drawText(surname_x, surname_y, surname)
-        # painter.drawText(birthday_x, birthday_y, birthday)
-        # painter.drawText(gender_x, gender_y, gender)
-        # painter.drawText(address_x, address_y, address)
-        painter.end()
         self.combined_image = combined_image
         self.ui.label_img.setPixmap(combined_image)
         self.ui.label_img.show()
@@ -251,6 +239,82 @@ class UpPhoiWindow(QMainWindow):
         self.preview_window.show()
         # Save the combined_image as PDF
         self.save_as_png(self.combined_image)
+        # self.save_value()
+        self.load_value("/home/baoanh/Desktop/qt5_application/app_v1/output/config.ini")
     def save_as_png(self,   image):
         image.save("output/preview.png", "PNG")
+    
+    def load_value(self, filepath):
+        settings = QSettings(filepath, QSettings.IniFormat)
+        defaultValue = 0
+        # Load values from the configuration file and set them to spin box widgets
+        self.ui.spinBox.setValue(int(settings.value("Foreground_Width", defaultValue)))
+        self.ui.spinBox_2.setValue(int(settings.value("Foreground_Height", defaultValue)))
+        self.ui.spinBox_3.setValue(int(settings.value("Foreground_x", defaultValue)))
+        self.ui.spinBox_4.setValue(int(settings.value("Foreground_y", defaultValue)))
+        self.ui.spinBox_5.setValue(int(settings.value("Foreground_Angle", defaultValue)))
+        self.ui.comboBox_2.setCurrentText(settings.value("Font_Size", defaultValue))
+        self.ui.comboBox_3.setCurrentText(settings.value("Font_Family", defaultValue))
+        self.ui.spinBox_23.setValue(int(settings.value("GivenName_x", defaultValue)))
+        self.ui.spinBox_25.setValue(int(settings.value("GivenName_y", defaultValue)))
+        self.ui.spinBox_24.setValue(int(settings.value("GivenName_Angle", defaultValue)))
+        self.ui.spinBox_15.setValue(int(settings.value("FirstName_x", defaultValue)))
+        self.ui.spinBox_14.setValue(int(settings.value("FirstName_y", defaultValue)))
+        self.ui.spinBox_16.setValue(int(settings.value("FirstName_Angle", defaultValue)))
+        self.ui.spinBox_18.setValue(int(settings.value("Birthday_x", defaultValue)))
+        self.ui.spinBox_17.setValue(int(settings.value("Birthday_y", defaultValue)))
+        self.ui.spinBox_19.setValue(int(settings.value("Birthday_Angle", defaultValue)))
+        self.ui.spinBox_12.setValue(int(settings.value("Gender_x", defaultValue)))
+        self.ui.spinBox_11.setValue(int(settings.value("Gender_y", defaultValue)))
+        self.ui.spinBox_13.setValue(int(settings.value("Gender_Angle", defaultValue)))
+        self.ui.spinBox_22.setValue(int(settings.value("Address_x", defaultValue)))
+        self.ui.spinBox_20.setValue(int(settings.value("Address_y", defaultValue)))
+        self.ui.spinBox_21.setValue(int(settings.value("Address_Angle", defaultValue)))
+        print("Loading successfully!")
+    def save_value(self):
+        import datetime
+
+        # Get the current date and time
+        current_datetime = datetime.datetime.now()
+
+        # Format the datetime as a string
+        datetime_string = current_datetime.strftime("%Y-%m-%d_%H-%M-%S")
+        settings = QSettings(f"output/config_{datetime_string}.ini", QSettings.IniFormat)
+        # Clear the content of the config file
+        settings.clear()
+        settings.setValue("Background_Width", 591)
+        settings.setValue("Backgroun_Height",361)
+
+        settings.setValue("Foreground_Width", self.ui.spinBox.value())
+        settings.setValue("Foreground_Height",  self.ui.spinBox_2.value())
+        settings.setValue("Foreground_x",  self.ui.spinBox_3.value())
+        settings.setValue("Foreground_y",  self.ui.spinBox_4.value())
+        settings.setValue("Foreground_Angle", self.ui.spinBox_5.value())
+
+        settings.setValue("Font_Size", self.ui.comboBox_2.currentText())
+        settings.setValue("Font_Family", self.ui.comboBox_3.currentText())
+
+        
+        settings.setValue("GivenName_x", self.ui.spinBox_23.value())
+        settings.setValue("GivenName_y", self.ui.spinBox_25.value())
+        settings.setValue("GivenName_Angle",self.ui.spinBox_24.value())
+
+        settings.setValue("FirstName_x", self.ui.spinBox_15.value())
+        settings.setValue("FirstName_y", self.ui.spinBox_14.value())
+        settings.setValue("FirstName_Angle", self.ui.spinBox_16.value())
+
+        settings.setValue("Birthday_x", self.ui.spinBox_18.value())
+        settings.setValue("Birthday_y", self.ui.spinBox_17.value())
+        settings.setValue("Birthday_Angle", self.ui.spinBox_19.value())
+
+        settings.setValue("Gender_x", self.ui.spinBox_12.value())
+        settings.setValue("Gender_y",self.ui.spinBox_11.value())
+        settings.setValue("Gender_Angle", self.ui.spinBox_13.value())
+
+        settings.setValue("Address_x", self.ui.spinBox_22.value())
+        settings.setValue("Address_y",  self.ui.spinBox_20.value())
+        settings.setValue("Address_Angle", self.ui.spinBox_22.value())
+
+        settings.sync()
+        print(f"All configuration is saved in output/config_{datetime_string}.ini")
 
