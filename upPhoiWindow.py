@@ -61,9 +61,10 @@ class UpPhoiWindow(QMainWindow):
         height = 361  # desired height
         background_image = background_image.scaled(width, height)
         foreground_image = foreground_image.scaled(img_width, img_height)
-        print("rotation_angle:", rotation_angle)
         transform = QTransform()
+        transform.translate(img_x, img_y)
         transform.rotate(rotation_angle)
+        transform.translate(-img_x, -img_y)
 
         # Create a new QPixmap object with the rotated image
         rotated_image = foreground_image.transformed(transform)
@@ -88,37 +89,32 @@ class UpPhoiWindow(QMainWindow):
         angle_gender = self.ui.spinBox_13.value()
         angle_address = self.ui.spinBox_22.value()
 
- 
-
-        transform_1 = QTransform()
-        transform_1.rotate(angle_givenname)
-
-        transform_2 = QTransform()
-        transform_2.rotate(angle_surname)
-
-        transform_3 = QTransform()
-        transform_3.rotate(angle_birthday)
-
-        transform_4 = QTransform()
-        transform_4.rotate(angle_gender)
-
-        transform_5 = QTransform()
-        transform_5.rotate(angle_address)
-
-        # # Apply the transformations to the painter for each text
-        
-        # Get the bounding rectangle of the text
-        text_rect = painter.boundingRect(givenname_x, givenname_y, 0, 0, Qt.AlignLeft | Qt.AlignTop, givenname)
-
-        # Calculate the center position based on the bounding rectangle
-        center_x = givenname_x + text_rect.width() 
-        center_y = givenname_y + text_rect.height() 
-
         # Create a transformation matrix for the rotation angle around the center
-        transform = QTransform()
-        transform.translate(center_x, center_y)
-        transform.rotate(angle_givenname)
-        transform.translate(-center_x, -center_y)
+        transform_1 = QTransform()
+        transform_1.translate(givenname_x, givenname_y)
+        transform_1.rotate(angle_givenname)
+        transform_1.translate(-givenname_x, -givenname_y)
+          # Create a transformation matrix for the rotation angle around the center
+        transform_2 = QTransform()
+        transform_2.translate(surname_x, surname_y)
+        transform_2.rotate(angle_surname)
+        transform_2.translate(-surname_x, -surname_y)
+          # Create a transformation matrix for the rotation angle around the center
+        transform_3 = QTransform()
+        transform_3.translate(birthday_x, birthday_y)
+        transform_3.rotate(angle_birthday)
+        transform_3.translate(-birthday_x, -birthday_y)
+          # Create a transformation matrix for the rotation angle around the center
+        transform_4 = QTransform()
+        transform_4.translate(gender_x, gender_y)
+        transform_4.rotate(angle_gender)
+        transform_4.translate(-gender_x, -gender_y)
+          # Create a transformation matrix for the rotation angle around the center
+        transform_5 = QTransform()
+        transform_5.translate(address_x, address_y)
+        transform_5.rotate(angle_address)
+        transform_5.translate(-address_x, -address_y)
+
         painter.setTransform(transform_1)
         painter.drawText(givenname_x, givenname_y, givenname)
 
@@ -262,8 +258,8 @@ class UpPhoiWindow(QMainWindow):
         self.preview_window.show()
         # Save the combined_image as PDF
         self.save_as_png(self.combined_image)
-        # self.save_value()
-        self.load_value("/home/baoanh/Desktop/qt5_application/app_v1/output/config.ini")
+        self.save_value()
+        # self.load_value("/home/baoanh/Desktop/qt5_application/app_v1/output/config.ini")
     def save_as_png(self,   image):
         image.save("output/preview.png", "PNG")
     
