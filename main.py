@@ -1,19 +1,21 @@
 from ui_interface import *
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, \
-                            QInputDialog, QLineEdit,\
-                            QFileDialog, QTableWidget, \
-                            QTableWidgetItem, QMessageBox, \
-                            QHeaderView, QStyle, QStyleOptionButton,QAction,  \
-                            QCheckBox, QVBoxLayout, QMenu
+    QInputDialog, QLineEdit, \
+    QFileDialog, QTableWidget, \
+    QTableWidgetItem, QMessageBox, \
+    QHeaderView, QStyle, QStyleOptionButton, QAction, \
+    QCheckBox, QVBoxLayout, QMenu
 
 from PyQt5.QtGui import QPainter, QPixmap, QFont, QFontDatabase, QTransform, QDesktopServices, QClipboard
 from PyQt5.QtCore import Qt, QRect, QUrl
 from Custom_Widgets.Widgets import *
 from PyQt5 import QtWidgets
-from functions import * 
+from functions import *
 from ui_upPhoiWindow import *
 from upPhoiWindow import UpPhoiWindow
+
+
 class MyHeader(QHeaderView):
     def __init__(self, orientation, parent=None):
         super().__init__(orientation, parent)
@@ -43,6 +45,7 @@ class MyHeader(QHeaderView):
                 item = self.tableWidget.item(row, 0)
                 if item:
                     item.setCheckState(Qt.Checked if self.isOn else Qt.Unchecked)
+
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -111,6 +114,7 @@ class MainWindow(QMainWindow):
         self.window2 = UpPhoiWindow()
         # self.ui.setupUi(self.window)
         self.window2.show()
+
     def contextMenuEvent(self, event):
         menu = QMenu(self)
 
@@ -135,6 +139,7 @@ class MainWindow(QMainWindow):
 
         menu.exec_(event.globalPos())
         event.accept()
+
     def get_checked_rows(self):
         # Retrieve checked rows
         checked_rows = []
@@ -143,6 +148,7 @@ class MainWindow(QMainWindow):
             if check_item.checkState() == Qt.Checked:
                 checked_rows.append(row)
         return checked_rows
+
     def pasteDeleteAccount(self):
         if self.ui.tableWidget.rowCount() > 0:
             # print(self.ui.tableWidget.rowCount())
@@ -167,8 +173,8 @@ class MainWindow(QMainWindow):
 
     def pasteNoDeleteAccount(self):
         if self.ui.tableWidget.rowCount() > 0:
-            start_row = self.ui.tableWidget.rowCount()  
-        
+            start_row = self.ui.tableWidget.rowCount()
+
         clipboard = QApplication.clipboard()
         clipboard_texts = clipboard.text().split("\n")
         self.ui.tableWidget.setRowCount(start_row + len(clipboard_texts))
@@ -185,9 +191,11 @@ class MainWindow(QMainWindow):
             item2 = QTableWidgetItem(str(row + 1))
             self.ui.tableWidget.setVerticalHeaderItem(row, item2)
             self.ui.tableWidget.setItem(row, 0, item)
+
     def clickSelectedAccount(self):
         # QMessageBox.information(self, "Custom Action", "Click vào tài khoản đã bôi đen clicked!")
         pass
+
     def start_generation(self):
         self.ui.start_button.setEnabled(False)
         self.ui.stop_button.setEnabled(True)
@@ -200,6 +208,7 @@ class MainWindow(QMainWindow):
         for i in range(0, self.ui.tableWidget.rowCount()):  # Create 4 generator threads
             if i in self.checked_rows:
                 generator_thread = NumberGeneratorThread(i, i * 10 + 1, self.delay_time)
+                generator_thread.setObjectName('Thread '+str(i))
                 generator_thread.number_generated.connect(self.handle_number_generated)
                 generator_thread.thread_finished.connect(self.handle_thread_finished)
                 self.generator_threads.append(generator_thread)
@@ -220,7 +229,8 @@ class MainWindow(QMainWindow):
     def stop_generation(self):
         self.ui.start_button.setEnabled(True)
         for generator_thread in self.generator_threads:
-            generator_thread.requestInterruption()
+            if generator_thread.isRunning():
+                generator_thread.requestInterruption()
 
     def handle_number_generated(self, number, thread_id):
         # print(f"Thread {thread_id}: {number}")
@@ -233,8 +243,8 @@ class MainWindow(QMainWindow):
         # print('current_thread_index: ', self.current_thread_index)
         # import ipdb; ipdb.set_trace();
         if self.current_thread_index < len(self.generator_threads):
-            if thread_id % self.num_threads==0:
-                self.run_next_threads() 
+            if thread_id % self.num_threads == 0:
+                self.run_next_threads()
         else:
             self.finish_generation()
 
@@ -248,13 +258,15 @@ class MainWindow(QMainWindow):
             generator_thread.quit()
             generator_thread.wait()
         self.generator_threads = []
-        
+
         # self.start_generation()
         print("All threads finished")
+
     def clearRow(self):
         for row in range(self.ui.tableWidget.rowCount()):
             item = QTableWidgetItem("")
             self.ui.tableWidget.setItem(row, 4, item)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
