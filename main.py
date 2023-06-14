@@ -107,34 +107,37 @@ class MainWindow(QMainWindow):
         return 0
 
     def openUpPhoiWindow(self):
-        # self.window= QtWidgets.QMainWindow()
-        self.window2 = UpPhoiWindow()
-        # self.ui.setupUi(self.window)
-        self.window2.show()
+        if  self.ui.comboBox_12.currentIndex() == 1:
+            # self.window= QtWidgets.QMainWindow()
+            self.window2 = UpPhoiWindow()
+            # self.ui.setupUi(self.window)
+            self.window2.show()
     def contextMenuEvent(self, event):
-        menu = QMenu(self)
+        # print("Coordinate",event.x(), event.y())
+        if (event.y() >305 and event.y() <602 and event.x() >  260 and event.x() < 987):
+            menu = QMenu(self)
 
-        paste_delete_action = QAction("Paste tài khoản [Xóa tài khoản cũ]", self)
-        paste_delete_action.triggered.connect(self.pasteDeleteAccount)
-        menu.addAction(paste_delete_action)
+            paste_delete_action = QAction("Paste tài khoản [Xóa tài khoản cũ]", self)
+            paste_delete_action.triggered.connect(self.pasteDeleteAccount)
+            menu.addAction(paste_delete_action)
 
-        paste_no_delete_action = QAction("Paste tài khoản [Không xóa tài khoản cũ]", self)
-        paste_no_delete_action.triggered.connect(self.pasteNoDeleteAccount)
-        menu.addAction(paste_no_delete_action)
+            paste_no_delete_action = QAction("Paste tài khoản [Không xóa tài khoản cũ]", self)
+            paste_no_delete_action.triggered.connect(self.pasteNoDeleteAccount)
+            menu.addAction(paste_no_delete_action)
 
-        click_selected_account_action = QAction("Click vào tài khoản đã bôi đen", self)
-        click_selected_account_action.triggered.connect(self.clickSelectedAccount)
-        menu.addAction(click_selected_account_action)
+            click_selected_account_action = QAction("Click vào tài khoản đã bôi đen", self)
+            click_selected_account_action.triggered.connect(self.clickSelectedAccount)
+            menu.addAction(click_selected_account_action)
 
-        menu.setStyleSheet("QMenu { background-color: rgb(46, 52, 54); }"
-                           "QMenu::item {   background-color: rgb(46, 52, 54); color: white; \
-                                            padding: 4px solid rgb(46, 52, 54);\
-                                            padding-left: 2px solid rgb(46, 52, 54);\
-                                            border: 1px solid rgb(46, 52, 54); }"
-                           "QMenu::item:selected { background-color: blue; }")
+            menu.setStyleSheet("QMenu { background-color: rgb(46, 52, 54); }"
+                            "QMenu::item {   background-color: rgb(46, 52, 54); color: white; \
+                                                padding: 4px solid rgb(46, 52, 54);\
+                                                padding-left: 2px solid rgb(46, 52, 54);\
+                                                border: 1px solid rgb(46, 52, 54); }"
+                            "QMenu::item:selected { background-color: blue; }")
 
-        menu.exec_(event.globalPos())
-        event.accept()
+            menu.exec_(event.globalPos())
+            event.accept()
     def get_checked_rows(self):
         # Retrieve checked rows
         checked_rows = []

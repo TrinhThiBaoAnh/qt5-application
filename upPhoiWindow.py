@@ -62,13 +62,8 @@ class UpPhoiWindow(QMainWindow):
         background_image = background_image.scaled(width, height)
         foreground_image = foreground_image.scaled(img_width, img_height)
         transform = QTransform()
-        transform.translate(img_x, img_y)
         transform.rotate(rotation_angle)
-        transform.translate(-img_x, -img_y)
-
-        # Create a new QPixmap object with the rotated image
         rotated_image = foreground_image.transformed(transform)
-
         self.ui.image_label.setPixmap(background_image)
 
         self.ui.spinBox.setValue(img_width)
