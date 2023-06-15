@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1030</width>
-    <height>641</height>
+    <width>1020</width>
+    <height>639</height>
    </rect>
   </property>
   <property name="cursor">
@@ -228,7 +228,7 @@ font: 75 15pt &quot;Ubuntu Condensed&quot;;</string>
            <rect>
             <x>360</x>
             <y>10</y>
-            <width>91</width>
+            <width>121</width>
             <height>21</height>
            </rect>
           </property>
@@ -454,7 +454,7 @@ background-color: #040f13;
                       </property>
                       <attribute name="icon">
                        <iconset resource="resources.qrc">
-                        <normaloff>:/icons/icons/testing.png</normaloff>:/icons/icons/testing.png</iconset>
+                        <normaloff>:/icons/icons/contacts.png</normaloff>:/icons/icons/contacts.png</iconset>
                       </attribute>
                       <attribute name="label">
                        <string>Liên hệ</string>
@@ -532,7 +532,7 @@ background-color: #040f13;
 background-color: rgb(4, 15, 19);</string>
                   </property>
                   <property name="currentIndex">
-                   <number>2</number>
+                   <number>0</number>
                   </property>
                   <widget class="QWidget" name="page_view">
                    <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -561,7 +561,7 @@ background-color: rgb(4, 15, 19);</string>
                         <rect>
                          <x>30</x>
                          <y>70</y>
-                         <width>191</width>
+                         <width>201</width>
                          <height>40</height>
                         </rect>
                        </property>
@@ -626,11 +626,14 @@ background-color: rgb(4, 15, 19);</string>
                       <widget class="QPushButton" name="pushButton_3">
                        <property name="geometry">
                         <rect>
-                         <x>30</x>
+                         <x>20</x>
                          <y>20</y>
-                         <width>111</width>
+                         <width>131</width>
                          <height>41</height>
                         </rect>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">text-align: left;</string>
                        </property>
                        <property name="text">
                         <string>Luồng chạy</string>
@@ -780,7 +783,7 @@ background-color: rgb(4, 15, 19);</string>
                       <widget class="QSpinBox" name="num_threads">
                        <property name="geometry">
                         <rect>
-                         <x>140</x>
+                         <x>150</x>
                          <y>20</y>
                          <width>81</width>
                          <height>40</height>

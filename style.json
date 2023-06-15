@@ -2,7 +2,7 @@
 	"QCustomSlideMenu": [{
 		"name": "side_menu",
 		"defaultSize": [{
-			"width": 218,
+			"width": 200,
 			"height": "auto"
 		}],
 		"collapsedSize": [{
@@ -10,14 +10,14 @@
 			"height": 0
 		}],
 		"expandedSize": [{
-			"width": 218,
+			"width": 200,
 			"height": "auto"
 		}],
 		"toggleButton": [{
 			"buttonName": "menuButton",
 			"icons": [{
-				"whenMenuIsCollapsed": ":/icons/icons/list.png",
-				"whenMenuIsExpanded": ":/icons/icons/list.png"
+				"whenMenuIsCollapsed": ":/icons/icons/menu.png",
+				"whenMenuIsExpanded": ":/icons/icons/menu.png"
 			}
 			]
 

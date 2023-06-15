@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, \
                             QFileDialog, QTableWidget, \
                             QTableWidgetItem, QMessageBox, \
                             QHeaderView, QStyle, QStyleOptionButton,QAction,  \
-                            QCheckBox, QVBoxLayout, QMenu
+                            QCheckBox, QVBoxLayout, QMenu,QDesktopWidget
 
 from PyQt5.QtGui import QPainter, QPixmap, QFont, QFontDatabase, QTransform, QDesktopServices, QClipboard
 from PyQt5.QtCore import Qt, QRect, QUrl
@@ -49,12 +49,15 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.centerWindow()
+        # Disable moving the window out of the screen boundaries
+        self.setFixedSize(self.size())
         ########################################################################
         # APPLY JSON STYLESHEET
         ########################################################################
         # self = QMainWindow class
         # self.ui = Ui_MainWindow / user interface class
-        loadJsonStyle(self, self.ui)
+        # loadJsonStyle(self, self.ui)
         ########################################################################
         # self.ui.pushButton_view.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_view))
         # self.ui.pushButton_config.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_config))
@@ -88,7 +91,20 @@ class MainWindow(QMainWindow):
         self.count = 0
         self.ui.comboBox_12.currentIndexChanged.connect(self.openUpPhoiWindow)
         self.show()
+    def centerWindow(self):
+        # Get the screen's geometry
+        screen = QDesktopWidget().screenGeometry()
 
+        # Calculate the center point of the screen
+        center_x = screen.width() // 2
+        center_y = screen.height() // 2
+
+        # Calculate the top-left position of the window
+        window_x = center_x - self.width() // 2
+        window_y = center_y - self.height() // 2
+
+        # Set the window's position
+        self.move(window_x, window_y)
     def menuChanged(self):
         if self.ui.toolBox_3.currentIndex() == 0:
             self.ui.stackedWidget.setCurrentWidget(self.ui.page_view)

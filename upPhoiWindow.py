@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QFileDialog, QDesktopWidget
 
 from PyQt5.QtGui import QPainter, QPixmap, QFont, QFontDatabase, QTransform, QDesktopServices, QClipboard, QPdfWriter
 from PyQt5.QtCore import Qt, QUrl,  QSettings
@@ -12,6 +12,9 @@ class UpPhoiWindow(QMainWindow):
         QMainWindow.__init__(self)
         self.ui  = Ui_UpPhoiWindow()
         self.ui.setupUi(self)
+        self.centerWindow()
+        # Disable moving the window out of the screen boundaries
+        self.setFixedSize(self.size())
         self.ui.pushButton.clicked.connect(self.browser_images)
         # Get the list of available font families
         font_families = QFontDatabase().families()
@@ -40,6 +43,20 @@ class UpPhoiWindow(QMainWindow):
         self.ui.label_36.linkActivated.connect(lambda url: QDesktopServices.openUrl(QUrl(url)))
 
         self.show()
+    def centerWindow(self):
+        # Get the screen's geometry
+        screen = QDesktopWidget().screenGeometry()
+
+        # Calculate the center point of the screen
+        center_x = screen.width() // 2
+        center_y = screen.height() // 2
+
+        # Calculate the top-left position of the window
+        window_x = center_x - self.width() // 2
+        window_y = center_y - self.height() // 2
+
+        # Set the window's position
+        self.move(window_x, window_y)
     def paint_images(self, background_image, foreground_image, 
                      givenname,surname,birthday,gender,address, 
                      img_x, img_y, rotation_angle, img_width, img_height,

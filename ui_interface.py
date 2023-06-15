@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'interfacePIORtR.ui'
+## Form generated from reading UI file 'interfacezAQMSo.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -20,7 +20,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1030, 641)
+        MainWindow.resize(1020, 639)
         MainWindow.setCursor(QCursor(Qt.ArrowCursor))
         MainWindow.setStyleSheet(u"*{\n"
 "	border: none;\n"
@@ -126,7 +126,7 @@ class Ui_MainWindow(object):
         self.label.setAlignment(Qt.AlignCenter)
         self.label_2 = QLabel(self.frame_5)
         self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(360, 10, 91, 21))
+        self.label_2.setGeometry(QRect(360, 10, 121, 21))
 
         self.horizontalLayout_2.addWidget(self.frame_5)
 
@@ -218,7 +218,9 @@ class Ui_MainWindow(object):
         self.menu_contact = QWidget()
         self.menu_contact.setObjectName(u"menu_contact")
         self.menu_contact.setGeometry(QRect(0, 0, 200, 68))
-        self.toolBox_3.addItem(self.menu_contact, icon3, u"Li\u00ean h\u1ec7")
+        icon4 = QIcon()
+        icon4.addFile(u":/icons/icons/contacts.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.toolBox_3.addItem(self.menu_contact, icon4, u"Li\u00ean h\u1ec7")
 
         self.verticalLayout_5.addWidget(self.toolBox_3, 0, Qt.AlignLeft|Qt.AlignTop)
 
@@ -268,14 +270,14 @@ class Ui_MainWindow(object):
         self.frame_11.setFrameShadow(QFrame.Raised)
         self.start_button = QPushButton(self.frame_11)
         self.start_button.setObjectName(u"start_button")
-        self.start_button.setGeometry(QRect(30, 70, 191, 40))
+        self.start_button.setGeometry(QRect(30, 70, 201, 40))
         self.start_button.setMinimumSize(QSize(0, 40))
         self.start_button.setStyleSheet(u"background-color: rgb(85, 0, 255);\n"
 "\n"
 "")
-        icon4 = QIcon()
-        icon4.addFile(u":/icons/icons/play.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.start_button.setIcon(icon4)
+        icon5 = QIcon()
+        icon5.addFile(u":/icons/icons/play.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.start_button.setIcon(icon5)
         self.start_button.setIconSize(QSize(24, 24))
         self.stop_button = QPushButton(self.frame_11)
         self.stop_button.setObjectName(u"stop_button")
@@ -283,23 +285,24 @@ class Ui_MainWindow(object):
         self.stop_button.setMinimumSize(QSize(0, 40))
         self.stop_button.setStyleSheet(u"background-color: rgb(255, 99, 102);\n"
 "")
-        icon5 = QIcon()
-        icon5.addFile(u":/icons/icons/stop.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.stop_button.setIcon(icon5)
+        icon6 = QIcon()
+        icon6.addFile(u":/icons/icons/stop.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.stop_button.setIcon(icon6)
         self.stop_button.setIconSize(QSize(24, 24))
         self.pushButton_3 = QPushButton(self.frame_11)
         self.pushButton_3.setObjectName(u"pushButton_3")
-        self.pushButton_3.setGeometry(QRect(30, 20, 111, 41))
-        icon6 = QIcon()
-        icon6.addFile(u":/icons/icons/calendar.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_3.setIcon(icon6)
+        self.pushButton_3.setGeometry(QRect(20, 20, 131, 41))
+        self.pushButton_3.setStyleSheet(u"text-align: left;")
+        icon7 = QIcon()
+        icon7.addFile(u":/icons/icons/calendar.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton_3.setIcon(icon7)
         self.pushButton_3.setIconSize(QSize(24, 24))
         self.pushButton_4 = QPushButton(self.frame_11)
         self.pushButton_4.setObjectName(u"pushButton_4")
         self.pushButton_4.setGeometry(QRect(230, 20, 91, 41))
-        icon7 = QIcon()
-        icon7.addFile(u":/icons/icons/clock.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_4.setIcon(icon7)
+        icon8 = QIcon()
+        icon8.addFile(u":/icons/icons/clock.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton_4.setIcon(icon8)
         self.pushButton_4.setIconSize(QSize(24, 24))
         self.frame_12 = QFrame(self.frame_11)
         self.frame_12.setObjectName(u"frame_12")
@@ -311,9 +314,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.pushButton_5 = QPushButton(self.frame_12)
         self.pushButton_5.setObjectName(u"pushButton_5")
-        icon8 = QIcon()
-        icon8.addFile(u":/icons/icons/list.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_5.setIcon(icon8)
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/icons/list.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton_5.setIcon(icon9)
         self.pushButton_5.setIconSize(QSize(24, 24))
 
         self.horizontalLayout_6.addWidget(self.pushButton_5)
@@ -334,9 +337,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8.setContentsMargins(0, 0, -1, 0)
         self.pushButton_6 = QPushButton(self.frame_13)
         self.pushButton_6.setObjectName(u"pushButton_6")
-        icon9 = QIcon()
-        icon9.addFile(u":/icons/icons/check.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_6.setIcon(icon9)
+        icon10 = QIcon()
+        icon10.addFile(u":/icons/icons/check.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton_6.setIcon(icon10)
         self.pushButton_6.setIconSize(QSize(24, 24))
 
         self.horizontalLayout_8.addWidget(self.pushButton_6)
@@ -348,7 +351,7 @@ class Ui_MainWindow(object):
 
         self.num_threads = QSpinBox(self.frame_11)
         self.num_threads.setObjectName(u"num_threads")
-        self.num_threads.setGeometry(QRect(140, 20, 81, 40))
+        self.num_threads.setGeometry(QRect(150, 20, 81, 40))
         self.num_threads.setMinimumSize(QSize(20, 40))
         self.num_threads.setMaximumSize(QSize(150, 16777215))
         self.num_threads.setSizeIncrement(QSize(0, 40))
@@ -683,7 +686,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.toolBox_3.setCurrentIndex(0)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)

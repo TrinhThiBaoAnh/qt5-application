@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'upPhoiWindowQiJvXc.ui'
+## Form generated from reading UI file 'upPhoiWindowLDeFaj.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -17,7 +17,7 @@ class Ui_UpPhoiWindow(object):
     def setupUi(self, UpPhoiWindow):
         if not UpPhoiWindow.objectName():
             UpPhoiWindow.setObjectName(u"UpPhoiWindow")
-        UpPhoiWindow.resize(1252, 789)
+        UpPhoiWindow.resize(1377, 789)
         UpPhoiWindow.setStyleSheet(u"background-color: #040f13;")
         self.centralwidget = QWidget(UpPhoiWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -46,16 +46,16 @@ class Ui_UpPhoiWindow(object):
         self.label.setGeometry(QRect(20, 0, 71, 16))
         self.pushButton = QPushButton(self.frame_3)
         self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(500, 390, 101, 31))
+        self.pushButton.setGeometry(QRect(560, 400, 101, 31))
         self.pushButton.setStyleSheet(u"background-color: rgb(46, 52, 54);")
         self.textEdit = QTextEdit(self.frame_3)
         self.textEdit.setObjectName(u"textEdit")
-        self.textEdit.setGeometry(QRect(20, 390, 461, 31))
+        self.textEdit.setGeometry(QRect(70, 400, 461, 31))
         self.textEdit.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
 "color: rgb(0, 0, 0);")
         self.image_label = QLabel(self.frame_3)
         self.image_label.setObjectName(u"image_label")
-        self.image_label.setGeometry(QRect(10, 20, 591, 361))
+        self.image_label.setGeometry(QRect(50, 20, 591, 361))
 
         self.horizontalLayout.addWidget(self.frame_3)
 
@@ -71,16 +71,16 @@ class Ui_UpPhoiWindow(object):
         self.label_2.setStyleSheet(u"color: rgb(255, 255, 255);")
         self.label_img = QLabel(self.frame_4)
         self.label_img.setObjectName(u"label_img")
-        self.label_img.setGeometry(QRect(10, 20, 591, 361))
+        self.label_img.setGeometry(QRect(40, 20, 591, 361))
         self.label_36 = QLabel(self.frame_4)
         self.label_36.setObjectName(u"label_36")
-        self.label_36.setGeometry(QRect(456, 420, 111, 20))
+        self.label_36.setGeometry(QRect(520, 410, 151, 20))
         self.label_36.setStyleSheet(u"\n"
 "color: rgb(0, 85, 255);\n"
 "text-decoration: underline;")
         self.btn_preview = QPushButton(self.frame_4)
         self.btn_preview.setObjectName(u"btn_preview")
-        self.btn_preview.setGeometry(QRect(20, 390, 101, 31))
+        self.btn_preview.setGeometry(QRect(20, 400, 101, 31))
         self.btn_preview.setStyleSheet(u"background-color: rgb(46, 52, 54);\n"
 "color: rgb(255, 255, 255);")
 
@@ -95,14 +95,15 @@ class Ui_UpPhoiWindow(object):
         self.frame_2.setMaximumSize(QSize(16777215, 300))
         self.frame_2.setFrameShape(QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_2 = QHBoxLayout(self.frame_2)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.frame_5 = QFrame(self.frame_2)
         self.frame_5.setObjectName(u"frame_5")
-        self.frame_5.setGeometry(QRect(10, 10, 781, 281))
         self.frame_5.setFrameShape(QFrame.StyledPanel)
         self.frame_5.setFrameShadow(QFrame.Raised)
         self.label_15 = QLabel(self.frame_5)
         self.label_15.setObjectName(u"label_15")
-        self.label_15.setGeometry(QRect(0, 0, 361, 21))
+        self.label_15.setGeometry(QRect(0, 10, 361, 21))
         self.label_15.setStyleSheet(u"color: rgb(255, 255, 255);")
         self.label_16 = QLabel(self.frame_5)
         self.label_16.setObjectName(u"label_16")
@@ -244,71 +245,83 @@ class Ui_UpPhoiWindow(object):
         self.label_30.setObjectName(u"label_30")
         self.label_30.setGeometry(QRect(270, 80, 20, 21))
         self.label_30.setStyleSheet(u"color: rgb(255, 255, 255);")
-        self.frame_7 = QFrame(self.frame_5)
+
+        self.horizontalLayout_2.addWidget(self.frame_5)
+
+        self.frame_7 = QFrame(self.frame_2)
         self.frame_7.setObjectName(u"frame_7")
-        self.frame_7.setGeometry(QRect(380, 20, 401, 251))
-        self.frame_7.setStyleSheet(u"background-color: rgb(70, 70, 70);\n"
-"background-color: rgb(31, 31, 31);")
         self.frame_7.setFrameShape(QFrame.StyledPanel)
         self.frame_7.setFrameShadow(QFrame.Raised)
-        self.label_31 = QLabel(self.frame_7)
-        self.label_31.setObjectName(u"label_31")
-        self.label_31.setGeometry(QRect(10, 0, 71, 16))
-        self.label_31.setStyleSheet(u"color: rgb(255, 255, 255);")
-        self.label_32 = QLabel(self.frame_7)
+        self.verticalLayout_2 = QVBoxLayout(self.frame_7)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.frame_8 = QFrame(self.frame_7)
+        self.frame_8.setObjectName(u"frame_8")
+        self.frame_8.setStyleSheet(u"")
+        self.frame_8.setFrameShape(QFrame.StyledPanel)
+        self.frame_8.setFrameShadow(QFrame.Raised)
+        self.label_32 = QLabel(self.frame_8)
         self.label_32.setObjectName(u"label_32")
         self.label_32.setGeometry(QRect(10, 90, 81, 16))
         self.label_32.setStyleSheet(u"color: rgb(255, 255, 255);")
-        self.label_33 = QLabel(self.frame_7)
+        self.label_33 = QLabel(self.frame_8)
         self.label_33.setObjectName(u"label_33")
         self.label_33.setGeometry(QRect(10, 130, 81, 16))
         self.label_33.setStyleSheet(u"color: rgb(255, 255, 255);")
-        self.label_34 = QLabel(self.frame_7)
+        self.label_34 = QLabel(self.frame_8)
         self.label_34.setObjectName(u"label_34")
         self.label_34.setGeometry(QRect(10, 170, 61, 16))
         self.label_34.setStyleSheet(u"color: rgb(255, 255, 255);")
-        self.label_35 = QLabel(self.frame_7)
+        self.label_35 = QLabel(self.frame_8)
         self.label_35.setObjectName(u"label_35")
         self.label_35.setGeometry(QRect(10, 210, 81, 16))
         self.label_35.setStyleSheet(u"color: rgb(255, 255, 255);")
-        self.comboBox_2 = QComboBox(self.frame_7)
+        self.comboBox_2 = QComboBox(self.frame_8)
         self.comboBox_2.setObjectName(u"comboBox_2")
         self.comboBox_2.setGeometry(QRect(90, 80, 291, 31))
         self.comboBox_2.setStyleSheet(u"background-color: rgb(46, 52, 54);\n"
 "color: rgb(255, 255, 255);")
-        self.comboBox_3 = QComboBox(self.frame_7)
+        self.comboBox_3 = QComboBox(self.frame_8)
         self.comboBox_3.setObjectName(u"comboBox_3")
         self.comboBox_3.setGeometry(QRect(90, 120, 191, 31))
         self.comboBox_3.setStyleSheet(u"background-color: rgb(46, 52, 54);\n"
 "color: rgb(255, 255, 255);")
-        self.comboBox_4 = QComboBox(self.frame_7)
+        self.comboBox_4 = QComboBox(self.frame_8)
         self.comboBox_4.addItem("")
         self.comboBox_4.setObjectName(u"comboBox_4")
         self.comboBox_4.setGeometry(QRect(290, 120, 91, 31))
         self.comboBox_4.setStyleSheet(u"background-color: rgb(46, 52, 54);\n"
 "color: rgb(255, 255, 255);")
-        self.comboBox_5 = QComboBox(self.frame_7)
+        self.comboBox_5 = QComboBox(self.frame_8)
         self.comboBox_5.addItem("")
         self.comboBox_5.setObjectName(u"comboBox_5")
         self.comboBox_5.setGeometry(QRect(90, 160, 291, 31))
         self.comboBox_5.setStyleSheet(u"background-color: rgb(46, 52, 54);\n"
 "color: rgb(255, 255, 255);")
-        self.comboBox_6 = QComboBox(self.frame_7)
+        self.comboBox_6 = QComboBox(self.frame_8)
         self.comboBox_6.addItem("")
         self.comboBox_6.setObjectName(u"comboBox_6")
         self.comboBox_6.setGeometry(QRect(90, 200, 291, 31))
         self.comboBox_6.setStyleSheet(u"background-color: rgb(46, 52, 54);\n"
 "color: rgb(255, 255, 255);")
-        self.comboBox = QComboBox(self.frame_7)
+        self.comboBox = QComboBox(self.frame_8)
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.setObjectName(u"comboBox")
         self.comboBox.setGeometry(QRect(90, 30, 291, 31))
         self.comboBox.setStyleSheet(u"background-color: rgb(46, 52, 54);\n"
 "color: rgb(255, 255, 255);")
+        self.label_31 = QLabel(self.frame_8)
+        self.label_31.setObjectName(u"label_31")
+        self.label_31.setGeometry(QRect(10, -10, 81, 31))
+        self.label_31.setStyleSheet(u"color: rgb(255, 255, 255);")
+
+        self.verticalLayout_2.addWidget(self.frame_8)
+
+
+        self.horizontalLayout_2.addWidget(self.frame_7)
+
         self.frame_6 = QFrame(self.frame_2)
         self.frame_6.setObjectName(u"frame_6")
-        self.frame_6.setGeometry(QRect(800, 10, 451, 271))
         self.frame_6.setFrameShape(QFrame.StyledPanel)
         self.frame_6.setFrameShadow(QFrame.Raised)
         self.label_4 = QLabel(self.frame_6)
@@ -408,8 +421,11 @@ class Ui_UpPhoiWindow(object):
         self.label_14.setStyleSheet(u"color: rgb(255, 255, 255);")
         self.label_3 = QLabel(self.frame_6)
         self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(10, 0, 171, 16))
+        self.label_3.setGeometry(QRect(10, 10, 171, 16))
         self.label_3.setStyleSheet(u"color: rgb(255, 255, 255);")
+
+        self.horizontalLayout_2.addWidget(self.frame_6)
+
 
         self.verticalLayout.addWidget(self.frame_2)
 
@@ -445,7 +461,6 @@ class Ui_UpPhoiWindow(object):
         self.label_28.setText(QCoreApplication.translate("UpPhoiWindow", u"X", None))
         self.label_29.setText(QCoreApplication.translate("UpPhoiWindow", u"X", None))
         self.label_30.setText(QCoreApplication.translate("UpPhoiWindow", u"X", None))
-        self.label_31.setText(QCoreApplication.translate("UpPhoiWindow", u"Thi\u1ebft l\u1eadp", None))
         self.label_32.setText(QCoreApplication.translate("UpPhoiWindow", u"K\u00edch c\u1ee1 ch\u1eef", None))
         self.label_33.setText(QCoreApplication.translate("UpPhoiWindow", u"Ki\u1ec3u ch\u1eef", None))
         self.label_34.setText(QCoreApplication.translate("UpPhoiWindow", u"M\u00e0u ch\u1eef", None))
@@ -459,6 +474,7 @@ class Ui_UpPhoiWindow(object):
         self.comboBox.setItemText(0, QCoreApplication.translate("UpPhoiWindow", u"T\u00e1ch ri\u00eang h\u1ecd, t\u00ean", None))
         self.comboBox.setItemText(1, QCoreApplication.translate("UpPhoiWindow", u"H\u1ecd t\u00ean \u0111\u1ea7y \u0111\u1ee7", None))
 
+        self.label_31.setText(QCoreApplication.translate("UpPhoiWindow", u"Thi\u1ebft l\u1eadp", None))
         self.label_4.setText(QCoreApplication.translate("UpPhoiWindow", u"K\u00edch th\u01b0\u1edbc \u1ea3nh 1", None))
         self.label_5.setText(QCoreApplication.translate("UpPhoiWindow", u"V\u1ecb tr\u00ed \u0111\u1eb7t v\u00e0o ph\u00f4i", None))
         self.label_6.setText(QCoreApplication.translate("UpPhoiWindow", u"K\u00edch th\u01b0\u1edbc \u1ea3nh 2", None))
